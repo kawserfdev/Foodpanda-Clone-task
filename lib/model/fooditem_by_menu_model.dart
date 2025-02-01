@@ -4,6 +4,8 @@
 
 import 'dart:convert';
 
+import 'food_model.dart';
+
 FoodItemByMenuModel foodItemByMenuModelFromJson(String str) => FoodItemByMenuModel.fromJson(json.decode(str));
 
 String foodItemByMenuModelToJson(FoodItemByMenuModel data) => json.encode(data.toJson());
@@ -29,46 +31,6 @@ class FoodItemByMenuModel {
     "status": status,
     "message": message,
     "data": data == null ? [] : List<dynamic>.from(data!.map((x) => x.toJson())),
-  };
-}
-
-class Food {
-  int? foodId;
-  String? foodName;
-  String? rating;
-  String? foodDescription;
-  String? foodImage;
-  double? foodPrice;
-  Currency? currency;
-
-  Food({
-    this.foodId,
-    this.foodName,
-    this.rating,
-    this.foodDescription,
-    this.foodImage,
-    this.foodPrice,
-    this.currency,
-  });
-
-  factory Food.fromJson(Map<String, dynamic> json) => Food(
-    foodId: json["FoodId"],
-    foodName: json["FoodName"],
-    rating: json["Rating"],
-    foodDescription: json["FoodDescription"],
-    foodImage: json["FoodImage"],
-    foodPrice: json["FoodPrice"],
-    currency: currencyValues.map[json["Currency"]]!,
-  );
-
-  Map<String, dynamic> toJson() => {
-    "FoodId": foodId,
-    "FoodName": foodName,
-    "Rating": rating,
-    "FoodDescription": foodDescription,
-    "FoodImage": foodImage,
-    "FoodPrice": foodPrice,
-    "Currency": currencyValues.reverse[currency],
   };
 }
 

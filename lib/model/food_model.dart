@@ -11,7 +11,7 @@ String foodByFoodModelToJson(FoodByFoodModel data) => json.encode(data.toJson())
 class FoodByFoodModel {
   int? status;
   String? message;
-  Data? data;
+  Food? data;
 
   FoodByFoodModel({
     this.status,
@@ -22,7 +22,7 @@ class FoodByFoodModel {
   factory FoodByFoodModel.fromJson(Map<String, dynamic> json) => FoodByFoodModel(
     status: json["status"],
     message: json["message"],
-    data: json["data"] == null ? null : Data.fromJson(json["data"]),
+    data: json["data"] == null ? null : Food.fromJson(json["data"]),
   );
 
   Map<String, dynamic> toJson() => {
@@ -32,7 +32,7 @@ class FoodByFoodModel {
   };
 }
 
-class Data {
+class Food {
   int? foodId;
   String? foodName;
   String? foodImage;
@@ -41,7 +41,7 @@ class Data {
   bool? isShowVariant;
   String? currency;
 
-  Data({
+  Food({
     this.foodId,
     this.foodName,
     this.foodImage,
@@ -51,7 +51,7 @@ class Data {
     this.currency,
   });
 
-  factory Data.fromJson(Map<String, dynamic> json) => Data(
+  factory Food.fromJson(Map<String, dynamic> json) => Food(
     foodId: json["FoodId"],
     foodName: json["FoodName"],
     foodImage: json["FoodImage"],

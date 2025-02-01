@@ -1,4 +1,5 @@
-import 'package:foodapptask/model/fooditem_by_menu_model.dart';
+
+import 'food_model.dart';
 
 class MenuWithFood {
   String menuName;

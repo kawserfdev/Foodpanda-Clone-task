@@ -1,8 +1,10 @@
 import 'package:flutter/material.dart';
 import 'package:flutter_riverpod/flutter_riverpod.dart';
+import 'package:foodapptask/model/food_model.dart';
 
 class FoodDetailsPage extends ConsumerStatefulWidget {
-  const FoodDetailsPage({super.key});
+  Food food;
+   FoodDetailsPage({super.key,required this.food});
 
   @override
   ConsumerState<ConsumerStatefulWidget> createState() => _FoodDetailsPageState();

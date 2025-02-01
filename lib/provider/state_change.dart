@@ -25,10 +25,13 @@ class RestaurantMenuNotifier extends ChangeNotifier {
     final menuProvider = ref.watch(restaurantFoodMenuProvider);
     if (menuProvider.value?.data != null) {
       menuList = menuProvider.value!.data!;
-      menuId = menuList.isNotEmpty ? menuList[0].menuId! : 1;
-      _menuName = menuList.isNotEmpty ? menuList[0].menuName : "";
-      
-      notifyListeners(); 
+      if (menuList.isNotEmpty) {
+        menuId = menuList[0].menuId!;
+        _menuName = menuList[0].menuName;
+        activeMenuIndex = 0; // ✅ Set default selection only if menu exists
+      }
+
+      notifyListeners();
       await loadFoodForMenu();
     }
   }
@@ -36,11 +39,12 @@ class RestaurantMenuNotifier extends ChangeNotifier {
   Future<void> loadFoodForMenu() async {
     if (menuList.isEmpty) return;
 
-    menuWithFoodList.clear(); 
+    menuWithFoodList.clear();
 
     for (var menu in menuList) {
       try {
-        final foodProvider = await ref.read(foodItemByMenuProvider(menu.menuId!).future);
+        final foodProvider =
+            await ref.read(foodItemByMenuProvider(menu.menuId!).future);
 
         if (foodProvider.data != null) {
           menuWithFoodList.add(
@@ -56,15 +60,21 @@ class RestaurantMenuNotifier extends ChangeNotifier {
     }
     notifyListeners();
   }
-    /// ✅ Detect last food item and switch menu
+
+  /// ✅ Detect last food item and switch menu
   void onFoodScrolled(int index) {
     if (menuWithFoodList.isEmpty) return;
 
     final currentMenu = menuWithFoodList[activeMenuIndex];
-    if (index >= currentMenu.foodList.length - 1) {
+    //_switchToNextMenu();
+    // ✅ Just detect last item, but DON'T switch menus automatically
+    if (index <= currentMenu.foodList.length - 1) {
       _switchToNextMenu();
+      print("Reached last item of the current menu");
     }
   }
+
+
   /// ✅ Switch to the next menu when the last item is reached
   void _switchToNextMenu() {
     if (activeMenuIndex < menuList.length - 1) {
@@ -86,12 +96,14 @@ class RestaurantMenuNotifier extends ChangeNotifier {
   }
 
   void changeMenu(int index) {
+    if (menuList.isEmpty || index >= menuList.length) return;
     activeMenuIndex = index;
     menuId = menuList[index].menuId!;
     _menuName = menuList[index].menuName;
-    ref.refresh(foodItemByMenuProvider(menuId)); 
+    ref.refresh(foodItemByMenuProvider(menuId));
     notifyListeners();
   }
+
 }
 
 // Riverpod Provider
