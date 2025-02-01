@@ -4,11 +4,11 @@ class APIs {
   static const restaurantOffer = "$baseUrl/RestaurantInfo/GetRestaurantOffer";
   static const restaurantMenuItem =
       "$baseUrl/RestaurantInfo/GetRestaurantMenuItem";
-  static String restaurantFoodItemByMenuId(String id) {
+  static String restaurantFoodItemByMenuId(int id) {
     return "$baseUrl/RestaurantInfo/GetRestaurantFoodItemByMenuId?menuId=$id";
   }
 
-  static String restaurantFoodByFoodId(String id) {
+  static String restaurantFoodByFoodId(int id) {
     return "$baseUrl/https://demo-api.devdata.top/api/RestaurantInfo/GetRestaurantFoodByFoodId?foodId=$id";
   }
 }

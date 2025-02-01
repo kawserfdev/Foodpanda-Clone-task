@@ -36,7 +36,7 @@ class Data {
   int? foodId;
   String? foodName;
   String? foodImage;
-  int? foodPrice;
+  double? foodPrice;
   String? foodDescription;
   bool? isShowVariant;
   String? currency;

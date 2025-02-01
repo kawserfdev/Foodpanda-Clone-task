@@ -38,7 +38,7 @@ class Food {
   String? rating;
   String? foodDescription;
   String? foodImage;
-  int? foodPrice;
+  double? foodPrice;
   Currency? currency;
 
   Food({
